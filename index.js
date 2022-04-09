@@ -1,4 +1,4 @@
-module.exports = function getFBInfo(videoUrl = "") {
+const getFBInfo = (videoUrl = "") => {
   const axios = require("axios");
 
   const headers = {
@@ -22,9 +22,11 @@ module.exports = function getFBInfo(videoUrl = "") {
 
   const parseString = (string) => JSON.parse(`{"text": "${string}"}`).text;
 
-  //   const videoUrl = "https://www.facebook.com/watch?v=272591278381388";
-
   return new Promise((resolve, reject) => {
+    if (!videoUrl || !videoUrl.trim()) return reject("Please specify the Facebook URL");
+
+    if (!videoUrl.includes("facebook.com")) return reject("Please enter the valid Facebook URL");
+
     axios.get(videoUrl, { headers }).then(({ data }) => {
       const sdMatch = data.match(/"playable_url":"(.*?)"/);
       const hdMatch = data.match(/"playable_url_quality_hd":"(.*?)"/);
@@ -33,6 +35,7 @@ module.exports = function getFBInfo(videoUrl = "") {
 
       if (sdMatch && sdMatch[1]) {
         const result = {
+          url: videoUrl,
           sd: parseString(sdMatch[1]),
           hd: hdMatch && hdMatch[1] ? parseString(hdMatch[1]) : "",
           title: titleMatch ? titleMatch[1] : parseString(titleMatch[1]),
@@ -44,3 +47,7 @@ module.exports = function getFBInfo(videoUrl = "") {
     });
   });
 };
+
+// getFBInfo("https://www.facebook.com/watch?v=272591278381388").then(console.log).catch(console.log);
+
+module.exports = getFBInfo;

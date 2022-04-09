@@ -1,4 +1,4 @@
-# fb-downloader v1.0.0
+# fb-downloader v1.0.3
 
 #### Downloads HD videos from Facebook
 
@@ -23,19 +23,31 @@ npm i fb-downloader
 ## Example
 
 ```sh
-import getFBInfo from "fb-downloader"
+import getFBInfo from "fb-downloader";
 
-const info = await getFBInfo("https://www.facebook.com/watch?v=272591278381388");
-console.log(info);
+OR
+
+const getFBInfo = require("fb-downloader");
+
+getFBInfo("https://www.facebook.com/watch?v=272591278381388").then(result => console.log("Result:", result)).catch(error => console.log("Error:", error));
+
+OR
+
+const printFBInfo = async() => {
+  const info = await getFBInfo("https://www.facebook.com/watch?v=272591278381388");
+  console.log(info);
+}
+printFBInfo();
 ```
 
 The output will be
 
 ```sh
 {
-  sd: 'https://video.fjai5-1.fna.fbcdn.net/v/t42.1790-2/275801506_172276165130059_885167449675909210_n.mp4?_nc_cat=104&ccb=1-5&_nc_sid=985c63&efg=eyJybHIiOjMxMSwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoic3ZlX3NkIn0%3D&_nc_ohc=kJrobRAXbxoAX8VEdvi&rl=311&vabr=173&_nc_ht=video.fjai5-1.fna&oh=00_AT-wGlrbVVdKYiAdjGQd5hZ2YjMkLqshdk9-o94DZaXzCg&oe=6246C62C',
-  hd: 'https://scontent.fjai5-1.fna.fbcdn.net/v/t66.36240-6/120162803_2190017344494785_2810101870338104985_n.mp4?_nc_cat=108&ccb=1-5&_nc_sid=985c63&efg=eyJybHIiOjE1MDAsInJsYSI6MTAyNCwidmVuY29kZV90YWciOiJvZXBfaGQifQ%3D%3D&_nc_ohc=Y4spcb6Zt4AAX-rAr77&rl=1500&vabr=239&_nc_ht=scontent.fjai5-1.fna&oh=00_AT9b4aIJp5aWOP4M4trMiXyxVWE7igHTfCIleKMUIvZhSQ&oe=624AF2FD',
+  url: 'https://www.facebook.com/watch?v=272591278381388',
+  sd: 'https://video.fudr3-1.fna.fbcdn.net/v/t42.1790-2/275801506_172276165130059_885167449675909210_n.mp4?_nc_cat=104&ccb=1-5&_nc_sid=985c63&efg=eyJybHIiOjMxMSwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoic3ZlX3NkIn0%3D&_nc_ohc=APPv2eMIya0AX8rCmCw&rl=311&vabr=173&_nc_ht=video.fudr3-1.fna&oh=00_AT9_UUFN4fyEEJCeNhCy6__4rLWt6mKo49KRBN4QlVyvQA&oe=625119EC',
+  hd: 'https://scontent.fudr3-1.fna.fbcdn.net/v/t66.36240-6/120162803_2190017344494785_2810101870338104985_n.mp4?_nc_cat=108&ccb=1-5&_nc_sid=985c63&efg=eyJybHIiOjE1MDAsInJsYSI6MTAyNCwidmVuY29kZV90YWciOiJvZXBfaGQifQ%3D%3D&_nc_ohc=lnorxsFd2IQAX_SqjXK&rl=1500&vabr=239&_nc_ht=scontent.fudr3-1.fna&oh=00_AT85Uldp0pZ9FpbyVgfvVIyF0RgBQlrHcwEmtmKZNSERWQ&oe=6256D07D',
   title: '&#x2022; Date Gone Wrong &#x1f606;&#x1f606;&#x1f926;&#x200d;&#x2642;&#xfe0f;',
-  thumbnail: 'https://scontent.fjai5-1.fna.fbcdn.net/v/t15.5256-10/275173684_1165104900988683_8395349523361992483_n.jpg?stp=dst-jpg_p960x960&_nc_cat=101&ccb=1-5&_nc_sid=df419e&_nc_ohc=CR8wn4I3yl4AX_MPj1E&_nc_ht=scontent.fjai5-1.fna&oh=00_AT_W53vbCs12eZVJ3tKC7rD7mhTi0oTHP_RMP9ADQJ8c8w&oe=624BBB48'
+  thumbnail: 'https://scontent.fudr3-1.fna.fbcdn.net/v/t15.5256-10/275173684_1165104900988683_8395349523361992483_n.jpg?stp=dst-jpg_p960x960&_nc_cat=101&ccb=1-5&_nc_sid=df419e&_nc_ohc=2x6n-Qlr4fsAX_q11Ey&_nc_ht=scontent.fudr3-1.fna&oh=00_AT_u8NDG6_FTGzUGFaj27LSgRcTQpNTaR_lZcNLv329dzg&oe=62559E88'
 }
 ```
