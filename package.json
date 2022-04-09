@@ -1,21 +1,21 @@
 {
   "name": "fb-downloader",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Downloads HD videos from Facebook.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "fb-downloader",
-    "facebook",
-    "downlaoder",
-    "facebook-downloader",
     "fb",
-    "video-downloader"
+    "facebook",
+    "downloader",
+    "fb-downloader",
+    "video-downloader",
+    "facebook-downloader"
   ],
   "author": "TIKAM CHAND MEGHWANSHI <https://www.tcmhack.in>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.26.1"
   }
