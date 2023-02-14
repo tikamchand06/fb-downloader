@@ -25,7 +25,9 @@ const getFBInfo = (videoUrl = "") => {
   return new Promise((resolve, reject) => {
     if (!videoUrl || !videoUrl.trim()) return reject("Please specify the Facebook URL");
 
-    if (!videoUrl.includes("facebook.com")) return reject("Please enter the valid Facebook URL");
+    if (
+      ["facebook.com", "fb.watch"].every((domain) => !videoUrl.includes(domain))
+    ) return reject("Please enter the valid Facebook URL");
 
     axios.get(videoUrl, { headers }).then(({ data }) => {
       const sdMatch = data.match(/"playable_url":"(.*?)"/);
