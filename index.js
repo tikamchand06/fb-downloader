@@ -40,13 +40,13 @@ const getFBInfo = (videoUrl = "") => {
           url: videoUrl,
           sd: parseString(sdMatch[1]),
           hd: hdMatch && hdMatch[1] ? parseString(hdMatch[1]) : "",
-          title: titleMatch ? titleMatch[1] : parseString(titleMatch[1]),
+          title: titleMatch && titleMatch[1] ? parseString(titleMatch[1]) : "",
           thumbnail: thumbMatch && thumbMatch[1] ? parseString(thumbMatch[1]) : "",
         };
 
         resolve(result);
       } else reject("Unable to fetch video information at this time. Please try again");
-    });
+    }).catch(_ => reject("Unable to fetch video information at this time. Please try again"));
   });
 };
 
