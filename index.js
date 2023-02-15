@@ -25,7 +25,9 @@ const getFBInfo = (videoUrl = "") => {
   return new Promise((resolve, reject) => {
     if (!videoUrl || !videoUrl.trim()) return reject("Please specify the Facebook URL");
 
-    if (!videoUrl.includes("facebook.com")) return reject("Please enter the valid Facebook URL");
+    if (
+      ["facebook.com", "fb.watch"].every((domain) => !videoUrl.includes(domain))
+    ) return reject("Please enter the valid Facebook URL");
 
     axios.get(videoUrl, { headers }).then(({ data }) => {
       const sdMatch = data.match(/"playable_url":"(.*?)"/);
@@ -38,13 +40,13 @@ const getFBInfo = (videoUrl = "") => {
           url: videoUrl,
           sd: parseString(sdMatch[1]),
           hd: hdMatch && hdMatch[1] ? parseString(hdMatch[1]) : "",
-          title: titleMatch ? titleMatch[1] : parseString(titleMatch[1]),
+          title: titleMatch && titleMatch[1] ? parseString(titleMatch[1]) : "",
           thumbnail: thumbMatch && thumbMatch[1] ? parseString(thumbMatch[1]) : "",
         };
 
         resolve(result);
       } else reject("Unable to fetch video information at this time. Please try again");
-    });
+    }).catch(_ => reject("Unable to fetch video information at this time. Please try again"));
   });
 };
 
