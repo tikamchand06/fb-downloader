@@ -30,8 +30,8 @@ const getFBInfo = (videoUrl = "") => {
     ) return reject("Please enter the valid Facebook URL");
 
     axios.get(videoUrl, { headers }).then(({ data }) => {
-      const sdMatch = data.match(/"playable_url":"(.*?)"/);
-      const hdMatch = data.match(/"playable_url_quality_hd":"(.*?)"/);
+      const sdMatch = data.match(/"playable_url":"(.*?)"/) || data.match(/sd_src: "(.*?)"/);
+      const hdMatch = data.match(/"playable_url_quality_hd":"(.*?)"/) || data.match(/hd_src: "(.*?)"/);
       const titleMatch = data.match(/<meta\sname="description"\scontent="(.*?)"/);
       const thumbMatch = data.match(/"preferred_thumbnail":{"image":{"uri":"(.*?)"/);
 
