@@ -37,7 +37,9 @@ const getFBInfo = (videoUrl, cookie, useragent) => {
     ) return reject("Please enter the valid Facebook URL");
 
     axios.get(videoUrl, { headers }).then(({ data }) => {
-      const sdMatch = data.match(/"playable_url":"(.*?)"/) || data.match(/sd_src: "(.*?)"/);
+      data = data.replace(/\\/g, "").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+
+      const sdMatch = data.match(/"playable_url":"(.*?)"/) || data.match(/sd_src: "(.*?)"/) || data.match(/(?<="src":")[^"]*(https:\/\/[^"]*)/);
       const hdMatch = data.match(/"playable_url_quality_hd":"(.*?)"/) || data.match(/hd_src: "(.*?)"/);
       const titleMatch = data.match(/<meta\sname="description"\scontent="(.*?)"/);
       const thumbMatch = data.match(/"preferred_thumbnail":{"image":{"uri":"(.*?)"/);
@@ -47,7 +49,7 @@ const getFBInfo = (videoUrl, cookie, useragent) => {
           url: videoUrl,
           sd: parseString(sdMatch[1]),
           hd: hdMatch && hdMatch[1] ? parseString(hdMatch[1]) : "",
-          title: titleMatch && titleMatch[1] ? parseString(titleMatch[1]) : "",
+          title: titleMatch && titleMatch[1] ? parseString(titleMatch[1]) : data.match(/<title>(.*?)<\/title>/)?.[1] ?? "",
           thumbnail: thumbMatch && thumbMatch[1] ? parseString(thumbMatch[1]) : "",
         };
 
